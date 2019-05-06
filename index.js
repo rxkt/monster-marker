@@ -25,7 +25,8 @@ module.exports = function markmob(mod) {
 		alerts,
 		Item_ID,
 		Monster_ID,
-		specialMobSearch
+		specialMobSearch,
+	        offset = 69n
 	
 	try{
 		config = JSON.parse(fs.readFileSync(path.join(__dirname,'config.json'), 'utf8'))
@@ -118,13 +119,13 @@ module.exports = function markmob(mod) {
 	})
 	
 ////////Dispatches
-	mod.hook('S_SPAWN_NPC', mod.majorPatchVersion < 79 ? 10 : 11, event => {	//Use version >5. Hunting zone ids are indeed only int16 types.
+	mod.hook('S_SPAWN_NPC', 11, event => {	//Use version >5. Hunting zone ids are indeed only int16 types.
 		if(!active || !enabled) return 
 		
 	
 		if(Monster_ID[`${event.huntingZoneId}_${event.templateId}`]) {
 			if(markenabled) {
-				markthis(event.loc,event.gameId*100n), //create unique id ?
+				markthis(event.loc,event.gameId), //create unique id ?
 				mobid.push(event.gameId)
 			}
 			
@@ -135,7 +136,7 @@ module.exports = function markmob(mod) {
 	
 		else if(specialMobSearch && event.bySpawnEvent) { //New def
 			if(markenabled) {
-				markthis(event.loc,event.gameId*100n), 
+				markthis(event.loc,event.gameId), 
 				mobid.push(event.gameId)
 			}
 			
@@ -149,7 +150,7 @@ module.exports = function markmob(mod) {
 
 	mod.hook('S_DESPAWN_NPC', 3, event => {
 		if(mobid.includes(event.gameId)) {
-			despawnthis(event.gameId*100n),
+			despawnthis(event.gameId),
 			mobid.splice(mobid.indexOf(event.gameId), 1)
 		}
 	})
@@ -162,8 +163,8 @@ module.exports = function markmob(mod) {
 	
 ////////Functions
 	function markthis(locs,idRef) {
-		mod.send('S_SPAWN_DROPITEM', 6, {
-			gameId: idRef,
+		mod.send('S_SPAWN_DROPITEM', 7, {
+			gameId: idRef * offset,
 			loc:locs,
 			item: Item_ID, 
 			amount: 1,
@@ -174,21 +175,30 @@ module.exports = function markmob(mod) {
 			source:0,
 			debug:false,
 			owners: [{id: 0}]
-		})
+		});
 	}
 	
 	function despawnthis(despawnid) {
 		mod.send('S_DESPAWN_DROPITEM', 4, {
-			gameId: despawnid
-		})
+			gameId: despawnid * offset
+		});
 	}
 	
 	function notice(msg) {
+		/*
+		**** looks like we don't need this anymore... lol
 		mod.send('S_DUNGEON_EVENT_MESSAGE', 2, {
-            type: 43,
-            chat: false,
-            channel: 0,
-            message: msg
+            	type: 43,
+            	chat: false,
+            	channel: 0,
+            	message: msg
+        	});
+		*/
+		mod.send('S_CHAT', 2, {
+			channel: 21,
+			authorName: 'Monster-Marker',
+			message: msg
+		});
         })
     }
 	
