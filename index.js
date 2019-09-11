@@ -29,6 +29,7 @@ module.exports = function markmob(mod) {
 	Monster_ID,
 	specialMobSearch,
 	offset = 69n
+
     /*
     try{
 	config = JSON.parse(fs.readFileSync(path.join(__dirname,'config.json'), 'utf8'))
