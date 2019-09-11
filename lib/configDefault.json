@@ -8,12 +8,13 @@
 	"allowAutoEntryRemoval": true,
 	"specialMobSearch": true,
 	"Monster_ID": {
-		"4_5011": "Tempest Kanash",
-		"38_35": "Nyxarras",
-		"57_33": "Betsael",
-		"51_7011": "Linyphi",
-		"10_99": "Divine Reaver",
-		"52_9050": "Yunaras Snaggletooth"
+	    "4_5011": "Tempest Kanash",
+	    "38_35": "Nyxarras",
+	    "57_33": "Betsael",
+	    "51_7011": "Linyphi",
+	    "10_99": "Divine Reaver",
+	    "52_9050": "Yunaras Snaggletooth",
+	    "1023_8000": "caiman"
 	},
 	"newEntries": {
 		"1023_3022124": "Golden Beetle"
