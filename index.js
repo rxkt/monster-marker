@@ -107,7 +107,7 @@ module.exports = function markmob(mod) {
 	raid(){
 	    sendToRaid = !sendToRaid;
 	    if (sendToRaid) sendToParty=false; //avoid sending duplicates
-	    mod.command.messagE( 'To raid: ' + sendToRaid );
+	    mod.command.message( 'To raid: ' + sendToRaid );
 	},
 	
 	marker() {
