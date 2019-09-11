@@ -31,47 +31,47 @@ module.exports = function markmob(mod) {
 	offset = 69n
 
     /*
-    try{
-	config = JSON.parse(fs.readFileSync(path.join(__dirname,'config.json'), 'utf8'))
-	let defaultConfig = JSON.parse(fs.readFileSync(path.join(__dirname,'lib','configDefault.json'), 'utf8'))
-	if(config.gameVersion !== defaultConfig.gameVersion || config.entriesVersion != defaultConfig.gameVersion && config.allowAutoEntryRemoval) {
-	    let oldMonsterList = JSON.parse(JSON.stringify(config.Monster_ID)), //Deep Clone to replace new list with old config using shallow merge
-		newMonsterEntry = JSON.parse(JSON.stringify(defaultConfig.newEntries))
+      try{
+      config = JSON.parse(fs.readFileSync(path.join(__dirname,'config.json'), 'utf8'))
+      let defaultConfig = JSON.parse(fs.readFileSync(path.join(__dirname,'lib','configDefault.json'), 'utf8'))
+      if(config.gameVersion !== defaultConfig.gameVersion || config.entriesVersion != defaultConfig.gameVersion && config.allowAutoEntryRemoval) {
+      let oldMonsterList = JSON.parse(JSON.stringify(config.Monster_ID)), //Deep Clone to replace new list with old config using shallow merge
+      newMonsterEntry = JSON.parse(JSON.stringify(defaultConfig.newEntries))
 
-	    if(config.allowAutoEntryRemoval === undefined) {
-		console.log('[Monster Marker] A new config option (allowAutoEntryRemoval) is added to allow this module to automatically clear old event monster entries. It is by default enabled, and you have to disable it in config.json before next login if you do not want this.');
-	    }
-	    else if(config.allowAutoEntryRemoval) {
-		for(let key of defaultConfig.deleteEntries) {	//Delete old unused entries for events that are over using deleteEntries
-		    if(oldMonsterList[key]) {
-			console.log(`[Monster Marker] Removed old event entry: ${oldMonsterList[key]}`)  
-			delete oldMonsterList[key]
-		    }
-		}
-		config.entriesVersion = defaultConfig.gameVersion
-	    }
+      if(config.allowAutoEntryRemoval === undefined) {
+      console.log('[Monster Marker] A new config option (allowAutoEntryRemoval) is added to allow this module to automatically clear old event monster entries. It is by default enabled, and you have to disable it in config.json before next login if you do not want this.');
+      }
+      else if(config.allowAutoEntryRemoval) {
+      for(let key of defaultConfig.deleteEntries) {	//Delete old unused entries for events that are over using deleteEntries
+      if(oldMonsterList[key]) {
+      console.log(`[Monster Marker] Removed old event entry: ${oldMonsterList[key]}`)  
+      delete oldMonsterList[key]
+      }
+      }
+      config.entriesVersion = defaultConfig.gameVersion
+      }
 
-	    Object.assign(oldMonsterList,newMonsterEntry) //Remember to remove the newentries for every update as well as remove old entries from past event
-	    
-	    config = Object.assign({},defaultConfig,config,{gameVersion:defaultConfig.gameVersion,Monster_ID:oldMonsterList}) //shallow merge
-	    delete config.newEntries
-	    delete config.deleteEntries
-	    save(config,'config.json')
-	    console.log('[Monster Marker] Updated new config file. Current settings transferred over.')
-	}
-	configInit()
-    }
-    catch(e){
-	let defaultConfig = JSON.parse(fs.readFileSync(path.join(__dirname,'lib','configDefault.json'), 'utf8'))
-	config = defaultConfig
-	Object.assign(config.Monster_ID,config.newEntries)
-	delete config.newEntries
-	delete config.deleteEntries
-	config.entriesVersion = defaultConfig.gameVersion
-	save(config,'config.json')
-	configInit()
-	console.log('[Monster Marker] New config file generated. Settings in config.json.')
-    }		
+      Object.assign(oldMonsterList,newMonsterEntry) //Remember to remove the newentries for every update as well as remove old entries from past event
+      
+      config = Object.assign({},defaultConfig,config,{gameVersion:defaultConfig.gameVersion,Monster_ID:oldMonsterList}) //shallow merge
+      delete config.newEntries
+      delete config.deleteEntries
+      save(config,'config.json')
+      console.log('[Monster Marker] Updated new config file. Current settings transferred over.')
+      }
+      configInit()
+      }
+      catch(e){
+      let defaultConfig = JSON.parse(fs.readFileSync(path.join(__dirname,'lib','configDefault.json'), 'utf8'))
+      config = defaultConfig
+      Object.assign(config.Monster_ID,config.newEntries)
+      delete config.newEntries
+      delete config.deleteEntries
+      config.entriesVersion = defaultConfig.gameVersion
+      save(config,'config.json')
+      configInit()
+      console.log('[Monster Marker] New config file generated. Settings in config.json.')
+      }		
     */
     
     ///////Commands
@@ -124,12 +124,12 @@ module.exports = function markmob(mod) {
 	    mod.command.message(`Active status: ${active}`)
 	}
 	/*
-	add(huntingZone,templateId,name) {
-	    config.Monster_ID[`${huntingZone}_${templateId}`] = name
-	    Monster_ID[`${huntingZone}_${templateId}`] = name
-	    save(config,'config.json')
-	    mod.command.message(` Added Config Entry: ${huntingZone}_${templateId}= ${name}`)
-	}
+	  add(huntingZone,templateId,name) {
+	  config.Monster_ID[`${huntingZone}_${templateId}`] = name
+	  Monster_ID[`${huntingZone}_${templateId}`] = name
+	  save(config,'config.json')
+	  mod.command.message(` Added Config Entry: ${huntingZone}_${templateId}= ${name}`)
+	  }
 	*/
 	
     })
@@ -222,7 +222,7 @@ module.exports = function markmob(mod) {
 	
     }
 }
-
+/*
 function save(data,args) {
     if(!Array.isArray(args)) args = [args] //Find a way around this later -.-
     
@@ -243,5 +243,4 @@ function save(data,args) {
 function configInit() {
     ({enabled,markenabled,messager,alerts,Item_ID,Monster_ID,specialMobSearch} = config)
 }
-}
-
+*/
