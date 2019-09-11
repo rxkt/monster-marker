@@ -220,7 +220,7 @@ module.exports = function markmob(mod) {
 	    });
 	}
 	
-    })
+    }
 }
 
 function save(data,args) {
