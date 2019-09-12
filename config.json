@@ -4,6 +4,8 @@
     "markenabled": true,
     "messager": true,
     "alerts": true,
+    "sendToParty": false,
+    "sendToRaid": false,
     "Item_ID": 98260,
     "allowAutoEntryRemoval": true,
     "specialMobSearch": true,

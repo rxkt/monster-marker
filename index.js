@@ -18,16 +18,16 @@ module.exports = function markmob(mod) {
     let	mobid=[],
 	fileopen = true,
 	stopwrite,
-	enabled,
+	enabled = config.enabled,
 	active = false,
-	markenabled,
-	messager,
-	alerts,
+	markenabled = config.markenabled,
+	messager = config.messenger,
+	alerts = config.alerts,
 	sendToParty = config.sendToParty,
 	sendToRaid = config.sendToRaid,
-	Item_ID,
-	Monster_ID,
-	specialMobSearch,
+	Item_ID = config.Item_ID,
+	Monster_ID = config.Monster_ID,
+	specialMobSearch = config.specialMobSearch,
 	offset = 69n
 
     /*
@@ -145,9 +145,9 @@ module.exports = function markmob(mod) {
 		mobid.push(event.gameId)
 	    }
 	    
-	    if(alerts) notice('Found '+ Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
+	    if(alerts) notice( Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
 	    
-	    if(messager) mod.command.message(' Found '+ Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
+	    if(messager) mod.command.message( Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
 	}
 	
 	else if(specialMobSearch && event.bySpawnEvent) { //New def
@@ -211,7 +211,6 @@ module.exports = function markmob(mod) {
 		channel: 25, 
 		message: msg
 	    });
-	    
 	}else{
 	    mod.send('S_CHAT', 2, {
 		channel: 21,
