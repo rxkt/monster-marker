@@ -25,6 +25,8 @@ module.exports = function markmob(mod) {
 	alerts = config.alerts,
 	sendToParty = config.sendToParty,
 	sendToRaid = config.sendToRaid,
+	markMob = config.markMob,
+	poiMob = config.poiMob,
 	Item_ID = config.Item_ID,
 	Monster_ID = config.Monster_ID,
 	specialMobSearch = config.specialMobSearch,
@@ -157,14 +159,14 @@ module.exports = function markmob(mod) {
 	    }
 		
 		let poi = ""
-		if (Monster_ID[`${event.huntingZoneId}_${event.templateId}`]==="caiman") poi = `<FONT color="#E114"><ChatLinkAction param="3#####1_11_113@7014@${event.loc.x},${event.loc.y},${event.loc.z}">&lt;Point of interest.&gt;</ChatLinkAction></FONT>`
+		if ((Monster_ID[`${event.huntingZoneId}_${event.templateId}`] === "caiman") && poiMob) poi = `<FONT color="#E114"><ChatLinkAction param="3#####1_11_113@7014@${event.loc.x},${event.loc.y},${event.loc.z}">&lt;Point of interest.&gt;</ChatLinkAction></FONT>`
 		
 		if(alerts) notice(`Found Special Monster ${poi}`)
 	    
 		if(messager) mod.command.message(`Found Special Monster ${poi}`)
 		//console.log(`Special mob:${event.huntingZoneId}_${event.templateId}`)
 		
-		mod.send('C_PARTY_MARKER', 1, {markers:[{color:1, target:event.target}]}) //Mark Monster
+		if(markMob) mod.send('C_PARTY_MARKER', 1, {markers:[{color:1, target:event.target}]}) //Mark Monster
 	}
 	
     }) 
