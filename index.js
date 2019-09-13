@@ -126,7 +126,7 @@ Ingame fileIO has been discontinued.`)
 	    
 	    if(messager) mod.command.message( Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
 
-	    if(markMob) mod.send('C_PARTY_MARKER', 1, {markers:[{color:2, target:event.target}]}) //Mark Monster
+	    if(markMob) mod.send('C_PARTY_MARKER', 1, {markers:[{color:1, target:event.gameId}]}) //Mark Monster
 	}
 	
 	else if(specialMobSearch && event.bySpawnEvent) { //New def
@@ -140,7 +140,7 @@ Ingame fileIO has been discontinued.`)
 	    if(messager) mod.command.message(`Found Special Monster`)
 	    //console.log(`Special mob:${event.huntingZoneId}_${event.templateId}`)
 	    
-	    if(markMob) mod.send('C_PARTY_MARKER', 1, {markers:[{color:2, target:event.target}]}) //Mark Monster
+	    if(markMob) mod.send('C_PARTY_MARKER', 1, {markers:[{color:1, target:event.gameId}]}) //Mark Monster
 	}
 	
     }) 
