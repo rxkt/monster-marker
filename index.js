@@ -32,49 +32,6 @@ module.exports = function markmob(mod) {
 	specialMobSearch = config.specialMobSearch,
 	offset = 69n
 
-    /*
-      try{
-      config = JSON.parse(fs.readFileSync(path.join(__dirname,'config.json'), 'utf8'))
-      let defaultConfig = JSON.parse(fs.readFileSync(path.join(__dirname,'lib','configDefault.json'), 'utf8'))
-      if(config.gameVersion !== defaultConfig.gameVersion || config.entriesVersion != defaultConfig.gameVersion && config.allowAutoEntryRemoval) {
-      let oldMonsterList = JSON.parse(JSON.stringify(config.Monster_ID)), //Deep Clone to replace new list with old config using shallow merge
-      newMonsterEntry = JSON.parse(JSON.stringify(defaultConfig.newEntries))
-
-      if(config.allowAutoEntryRemoval === undefined) {
-      console.log('[Monster Marker] A new config option (allowAutoEntryRemoval) is added to allow this module to automatically clear old event monster entries. It is by default enabled, and you have to disable it in config.json before next login if you do not want this.');
-      }
-      else if(config.allowAutoEntryRemoval) {
-      for(let key of defaultConfig.deleteEntries) {	//Delete old unused entries for events that are over using deleteEntries
-      if(oldMonsterList[key]) {
-      console.log(`[Monster Marker] Removed old event entry: ${oldMonsterList[key]}`)  
-      delete oldMonsterList[key]
-      }
-      }
-      config.entriesVersion = defaultConfig.gameVersion
-      }
-
-      Object.assign(oldMonsterList,newMonsterEntry) //Remember to remove the newentries for every update as well as remove old entries from past event
-      
-      config = Object.assign({},defaultConfig,config,{gameVersion:defaultConfig.gameVersion,Monster_ID:oldMonsterList}) //shallow merge
-      delete config.newEntries
-      delete config.deleteEntries
-      save(config,'config.json')
-      console.log('[Monster Marker] Updated new config file. Current settings transferred over.')
-      }
-      configInit()
-      }
-      catch(e){
-      let defaultConfig = JSON.parse(fs.readFileSync(path.join(__dirname,'lib','configDefault.json'), 'utf8'))
-      config = defaultConfig
-      Object.assign(config.Monster_ID,config.newEntries)
-      delete config.newEntries
-      delete config.deleteEntries
-      config.entriesVersion = defaultConfig.gameVersion
-      save(config,'config.json')
-      configInit()
-      console.log('[Monster Marker] New config file generated. Settings in config.json.')
-      }		
-    */
     
     ///////Commands
     mod.command.add('warn', {
@@ -84,7 +41,18 @@ module.exports = function markmob(mod) {
 	
 	info() {
 	    mod.command.message(`Version: ${config.gameVersion}`)
-	    mod.command.message('Commands: warn [arguments]\nArguments are as follows:\ntoggle: Enable/Disable Module\nalert: Toggle popup alerts\nmarker: Toggles markers spawn\nclear: Clears marker\nactive: Checks if module is active zone\nadd huntingZone templateId name: Adds the entry to the config')
+	    mod.command.message(`Commands: warn [arguments]
+Arguments are as follows:
+toggle: Enable/Disable Module
+alert: Toggle popup alerts
+marker: Toggles markers spawn
+clear: Clears marker
+active: Checks if module is active zone
+party: Sends party notice
+raid: Sends raid notice
+mark: Marks mob with pointer
+poi: Adds POI to message
+Ingame fileIO has been discontinued.`)
 	},
 	
 	toggle() {
@@ -111,6 +79,16 @@ module.exports = function markmob(mod) {
 	    if (sendToRaid) sendToParty=false; //avoid sending duplicates
 	    mod.command.message( 'To raid: ' + sendToRaid );
 	},
+
+	mark(){
+	    markMob = !markMob;
+	    mod.command.message( 'Mark mobs: ' + markMob );
+	},
+
+	poi(){
+	    poiMob = !poiMob;
+	    mod.command.message( 'Poi mobs: ' + poiMob );
+	},
 	
 	marker() {
 	    markenabled = !markenabled
@@ -125,14 +103,7 @@ module.exports = function markmob(mod) {
 	active() {
 	    mod.command.message(`Active status: ${active}`)
 	}
-	/*
-	  add(huntingZone,templateId,name) {
-	  config.Monster_ID[`${huntingZone}_${templateId}`] = name
-	  Monster_ID[`${huntingZone}_${templateId}`] = name
-	  save(config,'config.json')
-	  mod.command.message(` Added Config Entry: ${huntingZone}_${templateId}= ${name}`)
-	  }
-	*/
+
 	
     })
     
@@ -147,9 +118,11 @@ module.exports = function markmob(mod) {
 		mobid.push(event.gameId)
 	    }
 	    
-	    if(alerts) notice( Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
+	    if(alerts) notice( Monster_ID[`${event.huntingZoneId}_${event.templateId}`], event)
 	    
 	    if(messager) mod.command.message( Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
+
+	    if(markMob) mod.send('C_PARTY_MARKER', 1, {markers:[{color:1, target:event.target}]}) //Mark Monster
 	}
 	
 	else if(specialMobSearch && event.bySpawnEvent) { //New def
@@ -157,16 +130,13 @@ module.exports = function markmob(mod) {
 		markthis(event.loc,event.gameId), 
 		mobid.push(event.gameId)
 	    }
-		
-		let poi = ""
-		if ((Monster_ID[`${event.huntingZoneId}_${event.templateId}`] === "caiman") && poiMob) poi = `<FONT color="#E114"><ChatLinkAction param="3#####1_11_113@7014@${event.loc.x},${event.loc.y},${event.loc.z}">&lt;Point of interest.&gt;</ChatLinkAction></FONT>`
-		
-		if(alerts) notice(`Found Special Monster ${poi}`)
 	    
-		if(messager) mod.command.message(`Found Special Monster ${poi}`)
-		//console.log(`Special mob:${event.huntingZoneId}_${event.templateId}`)
-		
-		if(markMob) mod.send('C_PARTY_MARKER', 1, {markers:[{color:1, target:event.target}]}) //Mark Monster
+	    if(alerts) notice(`Found Special Monster`, event)
+	    
+	    if(messager) mod.command.message(`Found Special Monster`)
+	    //console.log(`Special mob:${event.huntingZoneId}_${event.templateId}`)
+	    
+	    if(markMob) mod.send('C_PARTY_MARKER', 1, {markers:[{color:1, target:event.target}]}) //Mark Monster
 	}
 	
     }) 
@@ -207,46 +177,29 @@ module.exports = function markmob(mod) {
 	});
     }
     
-    function notice(msg) {
+    function notice(msg, event) {
+
+	//currently only supports caimans
+	let poi = ""
+	if ( poiMob && (Monster_ID[`${event.huntingZoneId}_${event.templateId}`] === "caiman")) poi = `<FONT color="#E114"><ChatLinkAction param="3#####1_11_113@7014@${event.loc.x},${event.loc.y},${event.loc.z}">&lt;Point of interest.&gt;</ChatLinkAction></FONT>`
+	
 	if (sendToParty){
 	    mod.send('C_CHAT', 1, {
 		channel: 21,
-		message: msg
+		message: msg + ( poiMob ? ` ${poi}` : "")
 	    });
 	}else if (sendToRaid){
 	    mod.send('C_CHAT', 1, {
 		channel: 25, 
-		message: msg
+		message: msg + ( poiMob ? ` ${poi}` : "")
 	    });
 	}else{
 	    mod.send('S_CHAT', 2, {
 		channel: 21,
 		authorName: 'Monster-Marker',
-		message: msg
+		message: msg + ( poiMob ? ` ${poi}` : "")
 	    });
 	}
 	
     }
 }
-/*
-function save(data,args) {
-    if(!Array.isArray(args)) args = [args] //Find a way around this later -.-
-    
-    if(fileopen) {
-	fileopen=false
-	fs.writeFile(path.join(__dirname, ...args), JSON.stringify(data,null,"\t"), err => {
-	    if(err) mod.command.message('Error Writing File, attempting to rewrite')
-	    fileopen = true
-	})
-    }
-    else {
-	clearTimeout(stopwrite)			 //if file still being written
-	stopwrite=setTimeout(save(__dirname,...args),2000)
-	return
-    }
-}
-
-function configInit() {
-    ({enabled,markenabled,messager,alerts,Item_ID,Monster_ID,specialMobSearch} = config)
-}
-*/

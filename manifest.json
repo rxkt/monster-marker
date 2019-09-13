@@ -1,10 +1,10 @@
 {
     "files": {
         "README.md": "683f732b8d04575e659d197218ebdb11af0802ae642d6ee2bca4886911bb34bb",
-        "config.json": "b1c1470f44d762cf09265c2f84bd8b0ddc018d47b64e3f549dcc6f8b9e17082b",
-        "index.js": "d159036be1a8f180e9433ee24f62a7a46082163a150fe9bf799cf94a8c8b82a0",
+        "config.json": "41f4407a12a8c76cff9e2933c4091a32b54902cdd566d09f0c1bd792f31d657b",
+        "index.js": "281c03f9af0e9aaa62714fb2f3d1928076e3b5c1e98d76f3a6a3d9aa65153f4e",
         "lib/configDefault.json": "12dd2307893713fe6f05aa9ac17b347f1e8b33be7a4ca0fc808568c6f14da093",
-        "module.json": "4a8d2df641b164b1b24046e72ba8e1b937bce78cd7750bc63743862583c1ac6c"
+        "module.json": "653f5971215c8c0290a6af7cfbcd0d858f0f782efaf036885d8ed13916d35e17"
     },
     "defs": {
         "C_CHAT": 1,
