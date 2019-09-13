@@ -1,13 +1,14 @@
 {
     "files": {
         "README.md": "683f732b8d04575e659d197218ebdb11af0802ae642d6ee2bca4886911bb34bb",
-        "config.json": "5d4cc061b19352d7af029ba68c557eb7941a18e415b2fe7fd996a27d11be7b4a",
-        "index.js": "042414d0c04f2be24bce8524421c8f76012f8c0523fe0a78ff8eb7c4c0e88cc1",
+        "config.json": "b1c1470f44d762cf09265c2f84bd8b0ddc018d47b64e3f549dcc6f8b9e17082b",
+        "index.js": "d159036be1a8f180e9433ee24f62a7a46082163a150fe9bf799cf94a8c8b82a0",
         "lib/configDefault.json": "12dd2307893713fe6f05aa9ac17b347f1e8b33be7a4ca0fc808568c6f14da093",
         "module.json": "4a8d2df641b164b1b24046e72ba8e1b937bce78cd7750bc63743862583c1ac6c"
     },
     "defs": {
         "C_CHAT": 1,
+        "C_PARTY_MARKER": 1,
         "S_CHAT": 2,
         "S_DESPAWN_DROPITEM": 4,
         "S_DESPAWN_NPC": 3,
