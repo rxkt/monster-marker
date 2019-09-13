@@ -30,8 +30,12 @@ module.exports = function markmob(mod) {
 	Item_ID = config.Item_ID,
 	Monster_ID = config.Monster_ID,
 	specialMobSearch = config.specialMobSearch,
-	offset = 69n
+	offset = 69n,
+	channel = 0
 
+    mod.hook('S_CURRENT_CHANNEL', 2, (event) => {   		
+	channel = event.channel
+    })
     
     ///////Commands
     mod.command.add('warn', {
@@ -122,7 +126,7 @@ Ingame fileIO has been discontinued.`)
 	    
 	    if(messager) mod.command.message( Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
 
-	    if(markMob) mod.send('C_PARTY_MARKER', 1, {markers:[{color:1, target:event.target}]}) //Mark Monster
+	    if(markMob) mod.send('C_PARTY_MARKER', 1, {markers:[{color:2, target:event.target}]}) //Mark Monster
 	}
 	
 	else if(specialMobSearch && event.bySpawnEvent) { //New def
@@ -136,7 +140,7 @@ Ingame fileIO has been discontinued.`)
 	    if(messager) mod.command.message(`Found Special Monster`)
 	    //console.log(`Special mob:${event.huntingZoneId}_${event.templateId}`)
 	    
-	    if(markMob) mod.send('C_PARTY_MARKER', 1, {markers:[{color:1, target:event.target}]}) //Mark Monster
+	    if(markMob) mod.send('C_PARTY_MARKER', 1, {markers:[{color:2, target:event.target}]}) //Mark Monster
 	}
 	
     }) 
@@ -186,18 +190,18 @@ Ingame fileIO has been discontinued.`)
 	if (sendToParty){
 	    mod.send('C_CHAT', 1, {
 		channel: 21,
-		message: msg + ( poiMob ? ` ${poi}` : "")
+		message: msg + ( poiMob ? ` Ch.${channel} ${poi}` : "")
 	    });
 	}else if (sendToRaid){
 	    mod.send('C_CHAT', 1, {
 		channel: 25, 
-		message: msg + ( poiMob ? ` ${poi}` : "")
+		message: msg + ( poiMob ? ` Ch.${channel} ${poi}` : "")
 	    });
 	}else{
 	    mod.send('S_CHAT', 2, {
 		channel: 21,
 		authorName: 'Monster-Marker',
-		message: msg + ( poiMob ? ` ${poi}` : "")
+		message: msg + ( poiMob ? ` Ch.${channel} ${poi}` : "")
 	    });
 	}
 	
