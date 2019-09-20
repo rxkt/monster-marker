@@ -160,7 +160,7 @@ Ingame fileIO has been discontinued.`)
     
     ////////Functions
     function markthis(locs,idRef) {
-	mod.send('S_SPAWN_DROPITEM', 7, {
+	mod.send('S_SPAWN_DROPITEM', 8, {
 	    gameId: idRef * offset,
 	    loc:locs,
 	    item: Item_ID, 
@@ -198,7 +198,7 @@ Ingame fileIO has been discontinued.`)
 		message: msg + ( poiMob ? ` Ch.${channel} ${poi}` : "")
 	    });
 	}else{
-	    mod.send('S_CHAT', 2, {
+	    mod.send('S_CHAT', 3, {
 		channel: 21,
 		authorName: 'Monster-Marker',
 		message: msg + ( poiMob ? ` Ch.${channel} ${poi}` : "")
