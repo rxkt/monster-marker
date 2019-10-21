@@ -19,7 +19,20 @@
 	"10_99": "Divine Reaver",
 	"52_9050": "Yunaras Snaggletooth",
 	"1023_3022124": "Golden Beetle",
-	"1023_8000": "caiman"
+	"1023_8000": "caiman",
+	"2020_1100": "Supreme Draakon Pursuer",
+	"2020_1101": "Draakon Guard-Captain",
+	"2020_1102": "Supreme Draakon Dominator",
+	"2020_1200": "Elite Naga Priest",
+	"2020_1201": "Elite Naga Knight",
+	"2020_1202": "Elite Naga Executioner",
+	"2020_1300": "Manuk",
+	"2020_1400": "Axcellob",
+	"2020_1500": "Zemces",
+	"2020_1600": "Red-Flecked Crab",
+	"2020_1601": "Thorny Eyestalker",
+	"2020_1700": "Vekes"
+
     },
     "entriesVersion": "4.3.2"
 }
