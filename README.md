@@ -1,16 +1,17 @@
 # monster-marker
 A Tera Proxy module that warns you when specific objects(mobs like mongos/blue boxes) are in your VISIBLE vicinity (ie: IN YOUR SIGHT) and puts a marker on them.
 ## Updates
-Latest Version: v4.3.0 NA Santa and Blue box Event
+Latest Version: v5.0.1 Exodor memes
 
-Note: Special mob searching is enabled by default and can be disabled in config.json, under `specialMobSearch`. This is not tested since there is no event running atm. 
+Note: Special mob searching is enabled by default and can be disabled in config.json, under `specialMobSearch`. ~~This is not tested since there is no event running atm. ~~
 
 ## Requirements and Infomation
 Requires: 
 - Commands module by Pinkie-Pie: https://github.com/pinkipi/command
 
 Supports:
-- Auto Update using Caali's Proxy
+~~- Auto Update using Caali's Proxy~~  
+(Sorry too lazy to update manifest.json)  
 
 To find more mob ids, you can use mob-id-finder: https://github.com/SerenTera/Mob-id-finder
 
@@ -29,7 +30,8 @@ Configuration can be done via config.json. If not present, it will be generated 
 - `alerts`: Enable flashing messages for alert. True to enable.
 - `Item_ID`: Item ID of item marker
 - `Monster_ID`: List of Mobs to look out for. Format: `"<huntingZoneId>_<templateId>" : "<Name of mob>"`
-- `specialMobSearch`: Searches for specialMobs based on bySpawnEvent field
+- `specialMobSearch`: Searches for specialMobs based on bySpawnEvent field  
+
 
 ## Commands:
 Use the commands in /proxy chat. If you want to use it outside of /proxy chat, make sure you prefix the commands with '!'.
@@ -43,9 +45,16 @@ Use the commands in /proxy chat. If you want to use it outside of /proxy chat, m
 
 - `warn clear` - Attempts to clear all markers and reset the module. Use if vergos head failed to despawn for some weird reason
 
-- `warn add <huntingZoneId> <templateId> <name of entry>` - Adds and save a custom entry to the config.
+~~- `warn add <huntingZoneId> <templateId> <name of entry>` - Adds and save a custom entry to the config.~~
+  
+- `warn party` - Notifies your party through party notice  
+  
+- `warn raid`: Notifies your raid through raid notice  
+  
+- `warn poi`: Attaches Channel number to the notice. Also attaches <POI> if doing Caimans!!!! useful wow!!!  
+  
 
-Currently supports World Bams and Big Blue Boxes. Can be modified for other objects.
+Currently supports all event-type mobs. Can be modified for other objects.
 Many thanks to teralove for the work on party death markers for codes on markers (https://github.com/teralove/party-death-markers)
 
 ## ID List - NA Tera specific
@@ -56,8 +65,7 @@ Bluebox-1023 | Caiman-1023 | 'summer event crabs'-6553782
 Bluebox-88888888 | Caiman-99999999,99999991,99999992 | 'summer event crabs'-1021
 
 ## todo
-- Fix any bugs
-- Maybe incoporate mob id finder. maybee
+- no clue  
 
 ## Version History:
 
@@ -83,7 +91,13 @@ v4.2.6: Removed NA event bams
 
 v4.2.8 Added sSpawnNpc v9, various module.jsons stuff and special mob searching
 
-v4.2.9, v4.3.0 NA Santa and Blue Box Event
+v4.2.9, v4.3.0 NA Santa and Blue Box Event  
+
+v5.0.0: rxkt took over this module  
+  
+v5.1.0: Added party, raid notifications, support for caiman POI location & channels  
+  
+v5.1.1: Exodor support, in-combat stuff
 
 ## Pictures
 Spawns at box (Head cannot be picked up)
