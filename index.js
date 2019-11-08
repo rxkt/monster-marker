@@ -183,27 +183,32 @@ Ingame fileIO has been discontinued.`)
     
     function notice(msg, event) {
 
-	//currently only supports caimans
-	let poi = ""
-	if ( poiMob && (Monster_ID[`${event.huntingZoneId}_${event.templateId}`] === "caiman")) poi = `<FONT color="#E114"><ChatLinkAction param="3#####1_11_113@7014@${event.loc.x},${event.loc.y},${event.loc.z}">&lt;Point of interest.&gt;</ChatLinkAction></FONT>`
-	
-	if (sendToParty){
-	    mod.send('C_CHAT', 1, {
-		channel: 21,
-		message: msg + ( poiMob ? ` Ch.${channel} ${poi}` : "")
-	    });
-	}else if (sendToRaid){
-	    mod.send('C_CHAT', 1, {
-		channel: 25, 
-		message: msg + ( poiMob ? ` Ch.${channel} ${poi}` : "")
-	    });
-	}else{
-	    mod.send('S_CHAT', 3, {
-		channel: 21,
-		authorName: 'Monster-Marker',
-		message: msg + ( poiMob ? ` Ch.${channel} ${poi}` : "")
-	    });
-	}
+		//currently only supports caimans
+		let poi = ""
+		if ( poiMob && (Monster_ID[`${event.huntingZoneId}_${event.templateId}`] === "caiman")) poi = `<FONT color="#E114"><ChatLinkAction param="3#####1_11_113@7014@${event.loc.x},${event.loc.y},${event.loc.z}">&lt;Point of interest.&gt;</ChatLinkAction></FONT>`
+		
+		if (mod.game.me.zone === 2000) {
+			if (event.status === 2 || event.status === 1){ msg += "(In combat) "}
+			
+		}
+		
+		if (sendToParty){
+			mod.send('C_CHAT', 1, {
+			channel: 21,
+			message: msg + ( poiMob ? ` Ch.${channel} ${poi}` : "")
+			});
+		}else if (sendToRaid){
+			mod.send('C_CHAT', 1, {
+			channel: 25, 
+			message: msg + ( poiMob ? ` Ch.${channel} ${poi}` : "")
+			});
+		}else{
+			mod.send('S_CHAT', 3, {
+			channel: 21,
+			authorName: 'Monster-Marker',
+			message: msg + ( poiMob ? ` Ch.${channel} ${poi}` : "")
+			});
+		}
 	
     }
 }
